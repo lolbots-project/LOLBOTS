@@ -1,0 +1,41 @@
+# LOLBots catalog entry (schema version 0.1)
+# Technique-level description with defensive guidance only. No payloads.
+# ATT&CK / ATLAS mappings are placeholders: verify before publishing.
+
+schema_version: "0.1"
+
+id: LOLBOT-001
+name: Coding Agent Shell Tool
+legitimate_capability: >-
+  An IDE or CLI coding agent runs terminal commands to build, test,
+  and debug.
+abuse_categories:
+  - execution_via_proxy
+  - defense_evasion
+trust_assumption: >-
+  Endpoint security treats the agent's child processes as developer
+  activity, and the user has pre-approved broad command patterns.
+prerequisites:
+  - >-
+    The agent reads untrusted content (issues, READMEs, dependencies,
+    web pages).
+  - The agent has auto-approve enabled or a permissive command allowlist.
+detection:
+  - >-
+    Process trees where the agent spawns network utilities or
+    credential-adjacent commands unrelated to the task.
+  - Commands issued shortly after the agent ingested external content.
+  - >-
+    Agent-launched processes touching ~/.ssh, cloud credential files,
+    or browser profiles.
+mitigation:
+  - Default-deny command allowlists.
+  - Sandboxed or containerized execution.
+  - No ambient cloud credentials in the agent's environment.
+  - Human approval for network-capable commands.
+mappings:
+  attack:
+    - T1059
+  atlas:
+    - Indirect prompt injection
+maturity: demonstrated

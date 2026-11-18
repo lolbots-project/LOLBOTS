@@ -1,0 +1,37 @@
+# LOLBots catalog entry (schema version 0.1)
+# Technique-level description with defensive guidance only. No payloads.
+# ATT&CK / ATLAS mappings are placeholders: verify before publishing.
+
+schema_version: "0.1"
+
+id: LOLBOT-005
+name: Browser Agent Session Inheritance
+legitimate_capability: >-
+  A browser or computer-use agent acts inside the user's
+  already-authenticated browser profile.
+abuse_categories:
+  - lateral_movement
+  - privilege_escalation
+trust_assumption: >-
+  Every site sees the agent's requests as the logged-in user. MFA and
+  session checks were already satisfied by the human.
+prerequisites:
+  - >-
+    The agent browses pages containing untrusted content while holding
+    sessions for sensitive sites (email, banking, admin consoles).
+detection:
+  - Actions on high-value domains that the user's task did not mention.
+  - >-
+    Navigation sequences that jump from untrusted pages to
+    authenticated admin or settings pages.
+mitigation:
+  - Dedicated agent browser profiles with no inherited sessions.
+  - Per-domain permissions.
+  - Confirmation gates on state-changing actions.
+  - Visible action logs.
+mappings:
+  attack:
+    - T1550.004  # session cookie reuse, by analogy
+  atlas:
+    - Indirect prompt injection
+maturity: demonstrated

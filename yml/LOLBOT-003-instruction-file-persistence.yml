@@ -1,0 +1,35 @@
+# LOLBots catalog entry (schema version 0.1)
+# Technique-level description with defensive guidance only. No payloads.
+# ATT&CK / ATLAS mappings are placeholders: verify before publishing.
+
+schema_version: "0.1"
+
+id: LOLBOT-003
+name: Instruction File Persistence
+legitimate_capability: >-
+  Agents load project-level instruction files (rules files, AGENTS.md-style
+  docs, memory stores) at the start of every session.
+abuse_categories:
+  - persistence
+trust_assumption: >-
+  Instruction files are read as the user's intent, not as untrusted
+  input, and they are rarely reviewed like code.
+prerequisites:
+  - >-
+    Write access to the repo, shared config, or agent memory, via a
+    prior injection, a malicious PR, or a compromised dependency.
+detection:
+  - File integrity monitoring on instruction and memory files.
+  - Diff alerts in PRs touching instruction files.
+  - Agent behavior changes that correlate with an instruction-file change.
+  - Hidden or non-rendering characters in those files.
+mitigation:
+  - Require CODEOWNERS review for instruction files.
+  - Treat memory writes as privileged actions.
+  - Show users when memory or rules change.
+mappings:
+  attack:
+    - T1546  # loose analogy
+  atlas:
+    - Memory/context poisoning
+maturity: demonstrated

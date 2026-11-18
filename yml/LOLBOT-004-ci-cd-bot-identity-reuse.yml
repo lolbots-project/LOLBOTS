@@ -1,0 +1,44 @@
+# LOLBots catalog entry (schema version 0.1)
+# Technique-level description with defensive guidance only. No payloads.
+# ATT&CK / ATLAS mappings are placeholders: verify before publishing.
+
+schema_version: "0.1"
+
+id: LOLBOT-004
+name: CI/CD Bot Identity Reuse
+legitimate_capability: >-
+  An automated reviewer or triage bot comments on PRs, labels issues,
+  and sometimes pushes commits using a repo token.
+abuse_categories:
+  - privilege_escalation
+  - supply_chain
+trust_assumption: >-
+  Humans and workflows trust actions attributed to the bot account.
+  The bot's token often has more scope than the contributor who
+  triggered it.
+prerequisites:
+  - >-
+    The bot processes attacker-controllable text (PR titles, branch
+    names, issue bodies).
+  - The bot holds write or secrets-adjacent permissions.
+detection:
+  - >-
+    Bot-authored commits or workflow changes that were not requested
+    by a maintainer.
+  - Token use from unusual contexts.
+  - Bot actions triggered by first-time contributors.
+mitigation:
+  - Least-privilege, short-lived tokens.
+  - Separate read-only analysis from write actions.
+  - >-
+    Require maintainer approval before the bot acts on external
+    contributions.
+mappings:
+  attack:
+    - T1195
+    - T1078
+  atlas: []
+maturity: observed
+maturity_notes: >-
+  Observed in adjacent forms (CI injection generally); agent-specific
+  cases demonstrated.

@@ -1,0 +1,40 @@
+# LOLBots catalog entry (schema version 0.1)
+# Technique-level description with defensive guidance only. No payloads.
+# ATT&CK / ATLAS mappings are placeholders: verify before publishing.
+
+schema_version: "0.1"
+
+id: LOLBOT-002
+name: MCP Tool Chaining for Exfiltration
+legitimate_capability: >-
+  An agent has one connector that reads sensitive data (files, tickets,
+  CRM) and another that writes outward (email, chat, issue comments,
+  web fetch).
+abuse_categories:
+  - exfiltration
+trust_assumption: >-
+  Each tool is individually approved, but nobody reviewed the
+  combination. The outbound tool is a sanctioned egress channel, so
+  DLP rarely inspects it.
+prerequisites:
+  - Read-sensitive and write-external tools available in the same agent session.
+  - A path for untrusted content to influence the agent.
+detection:
+  - >-
+    A read-sensitive call followed by a write-external call within one
+    session, especially when the destination has never appeared before.
+  - >-
+    Large payloads in tool arguments that were not present in the
+    user's request.
+mitigation:
+  - >-
+    Treat tool pairs as the unit of risk (private data, untrusted
+    content, external communication).
+  - Separate sessions or agents for read and send.
+  - Destination allowlists and argument logging.
+mappings:
+  attack:
+    - T1567
+  atlas:
+    - Indirect prompt injection
+maturity: demonstrated
