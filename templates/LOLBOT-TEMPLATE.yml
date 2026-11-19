@@ -1,0 +1,56 @@
+# LOLBots entry template (schema version 0.1)
+#
+# Copy this file to entries/LOLBOT-NNN-short-name.yml and fill in every field.
+# Do not add or remove fields. Only `maturity_notes` is optional.
+# See NOTICE.md for the meaning of each field and the allowed values.
+#
+# Keep entries at the technique level: no payloads, weaponized prompts,
+# or instructions aimed at a specific target.
+
+schema_version: "0.1"
+
+# Identifier: LOLBOT-NNN. Maintainers assign the final number during review.
+id: LOLBOT-NNN
+
+# Short, descriptive name of the capability or abuse pattern.
+name: ""
+
+# What the bot is supposed to do (the intended, benign use).
+legitimate_capability: >-
+  
+
+# One or more of:
+#   execution_via_proxy, exfiltration, persistence, privilege_escalation,
+#   lateral_movement, defense_evasion, supply_chain
+abuse_categories:
+  - 
+
+# The specific assumption that makes the abuse work.
+trust_assumption: >-
+  
+
+# What must be true for the technique to apply.
+prerequisites:
+  - 
+
+# Telemetry, behavioral signals, and analytic ideas for defenders.
+detection:
+  - 
+
+# Controls that reduce the risk.
+mitigation:
+  - 
+
+# Best-effort references. Either list may be empty ([]).
+# Mark loose analogies with a comment, e.g. "- T1546  # loose analogy".
+mappings:
+  attack: []
+  atlas: []
+
+# One of: theoretical | demonstrated | observed
+maturity: theoretical
+
+# Optional. Context for the maturity rating (product, version, configuration,
+# sources). Delete this field if not needed.
+maturity_notes: >-
+  
